@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.polarbookshop'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.2-SNAPSHOT'
 sourceCompatibility = '17'
 
 description = 'Provides functionality for managing the books in the catalog.'
@@ -21,4 +21,10 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+tasks.named('bootBuildImage') {
+	if (System.getProperty( "os.arch" ).toLowerCase().startsWith('aarch')) {
+		builder = "ghcr.io/thomasvitale/java-builder-arm64"
+	}
+	builder = "paketobuildpacks/builder:tiny"
 }
